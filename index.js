@@ -2,6 +2,7 @@ let express = require('express');
 let app = express();
 let expenseUtils = require('./expenseUtils');
 let bodyParser = require('body-parser');
+let gfs = require('gridfs-stream');
 let port = process.env.PORT ? process.env.PORT : 8100;
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({
@@ -10,6 +11,10 @@ app.use(bodyParser.urlencoded({
 
 app.get('/isUp', (req, res) => {
   res.send('Running');
+});
+
+app.post('/expenses/document/add', (req, res) => {
+  expenseUtils.addDocument(req, res);
 });
 
 
