@@ -1,4 +1,9 @@
 let mongoose = require('mongoose');
+
+const expenseCategories = {
+    MISC: 0
+};
+
 let expenseSchema = new mongoose.Schema({
     expenseId: {
         type: String,
@@ -15,6 +20,14 @@ let expenseSchema = new mongoose.Schema({
     value: {
         type: Number,
         required: true
+    },
+    label: {
+        type: String,
+        default: 'Expense'
+    },
+    category: {
+        type: String,
+        default: expenseCategories.MISC
     }
 });
 
