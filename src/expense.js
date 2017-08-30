@@ -12,6 +12,10 @@ let expenseSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    value: {
+        type: Number,
+        required: true
+    }
 });
 
 let Expense = mongoose.model('Expense', expenseSchema);
