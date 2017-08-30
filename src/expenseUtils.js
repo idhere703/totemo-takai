@@ -25,5 +25,55 @@ module.exports = {
                 });
             });
         });
+    },
+    addExpense: (req, res) => {
+        mongoose.connect(dbName);
+        let db = mongoose.connection;
+        db.on('error', console.error);
+        db.once('open', () => {
+            const expense = new Expense({
+                category: req.body.category,
+                label: req.body.label,
+                value: req.body.value,
+                expenseId: req.body.expenseId,
+            });
+
+            expense.save((err, thor) => {
+                if (err) return console.error(err);
+                db.close();
+                res.sendStatus(200);
+                console.dir(expense);
+            });
+        });
+    },
+
+    getExpenses: (req, res) => {
+        mongoose.connect(dbName);
+        let db = mongoose.connection;
+        db.on('error', console.error);
+        db.once('open', () => {
+            Expense.find({}, (err, results) => {
+                if (err) return console.error(err);
+                db.close();
+                res.status(200).send(results);
+                console.dir(results);
+            });
+        });
+    },
+
+    getExpense: (req, res) => {
+        mongoose.connect(dbName);
+        let db = mongoose.connection;
+        db.on('error', console.error);
+        db.once('open', () => {
+            Expense.find({
+                '_id': req.params.expenseId
+            }, (err, results) => {
+                if (err) return console.error(err);
+                db.close();
+                res.status(200).send(results);
+                console.dir(results);
+            });
+        });
     }
 };
