@@ -53,6 +53,7 @@ module.exports = {
         db.on('error', console.error);
         db.once('open', () => {
             Expense.find({}, (err, results) => {
+                console.log('Results', err, results);
                 if (err) return console.error(err);
                 db.close();
                 res.status(200).send(results);

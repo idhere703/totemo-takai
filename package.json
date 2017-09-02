@@ -5,11 +5,15 @@
   "main": "index.js",
   "author": "Brandon Underwood",
   "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
     "ejs": "^2.5.1",
     "express": "^4.14.0",
+    "gridfs-stream": "^1.1.1",
     "mongoose": "^4.5.9",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0"

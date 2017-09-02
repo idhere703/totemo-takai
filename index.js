@@ -1,6 +1,6 @@
 let express = require('express');
 let app = express();
-let expenseUtils = require('./expenseUtils');
+let expenseUtils = require('./src/expenseUtils');
 let bodyParser = require('body-parser');
 let gfs = require('gridfs-stream');
 let port = process.env.PORT ? process.env.PORT : 8100;
@@ -11,6 +11,10 @@ app.use(bodyParser.urlencoded({
 
 app.get('/isUp', (req, res) => {
   res.send('Running');
+});
+
+app.get('/expenses', (req, res) => {
+  expenseUtils.getExpenses(req, res);
 });
 
 app.post('/expenses/document/add', (req, res) => {
