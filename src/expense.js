@@ -5,10 +5,6 @@ const expenseCategories = {
 };
 
 let expenseSchema = new mongoose.Schema({
-    expenseId: {
-        type: String,
-        required: true
-    },
     updated: {
         type: Date,
         default: Date.now

@@ -35,10 +35,9 @@ module.exports = {
                 category: req.body.category,
                 label: req.body.label,
                 value: req.body.value,
-                expenseId: req.body.expenseId,
             });
 
-            expense.save((err, thor) => {
+            expense.save((err, exp) => {
                 if (err) return console.error(err);
                 db.close();
                 res.sendStatus(200);

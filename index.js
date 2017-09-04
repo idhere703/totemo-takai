@@ -17,6 +17,10 @@ app.get('/expenses', (req, res) => {
   expenseUtils.getExpenses(req, res);
 });
 
+app.post('/expenses/add', (req, res) => {
+  expenseUtils.addExpense(req, res);
+});
+
 app.post('/expenses/document/add', (req, res) => {
   expenseUtils.addDocument(req, res);
 });
