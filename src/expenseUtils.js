@@ -46,6 +46,25 @@ module.exports = {
         });
     },
 
+    updateExpense: (req, res) => {
+        mongoose.connect(dbName);
+        let db = mongoose.connection;
+        db.on('error', console.error);
+        db.once('open', () => {
+            Expense.findOneAndUpdate({
+                _id: req.newData._id
+            }, req.newData,
+                {
+                    upsert: true
+                }, function(err, doc) {
+                    if (err) return res.send(500, {
+                            error: err
+                        });
+                    return res.send("succesfully saved");
+                });
+        });
+    },
+
     getExpenses: (req, res) => {
         mongoose.connect(dbName);
         let db = mongoose.connection;

@@ -24,6 +24,11 @@ let expenseSchema = new mongoose.Schema({
     category: {
         type: String,
         default: expenseCategories.MISC
+    },
+    active: {
+        type: Boolean,
+        default: true,
+        required: true
     }
 });
 
