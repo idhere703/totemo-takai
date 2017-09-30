@@ -51,9 +51,10 @@ module.exports = {
         let db = mongoose.connection;
         db.on('error', console.error);
         db.once('open', () => {
+            console.log(req.body);
             Expense.findOneAndUpdate({
-                _id: req.newData._id
-            }, req.newData,
+                _id: req.body._id
+            }, req.body,
                 {
                     upsert: true
                 }, function(err, doc) {
