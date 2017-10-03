@@ -51,7 +51,7 @@ module.exports = {
         let db = mongoose.connection;
         db.on('error', console.error);
         db.once('open', () => {
-            console.log(req.body);
+            console.log(res, 'testing things');
             Expense.findOneAndUpdate({
                 _id: req.body._id
             }, req.body,
