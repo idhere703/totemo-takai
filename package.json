@@ -6,7 +6,8 @@
   "author": "Brandon Underwood",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "mocha"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
@@ -19,7 +20,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "mocha": "^3.0.2",
+    "mocha": "^4.0.0",
     "supertest": "^2.0.0"
   }
 }
