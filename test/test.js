@@ -1,8 +1,23 @@
 const assert = require('assert');
 describe('Expense', () => {
-    describe('#indexOf()', () => {
-        it('should return -1 when the value is not present', () => {
-            assert.equal(-1, [1, 2, 3].indexOf(4));
+    describe('#get', () => {
+        it('should return return a list of all expenses', () => {
+
+        });
+    });
+    describe('#create', () => {
+        it('should create a new expense record', () => {
+
+        });
+    });
+    describe('#update', () => {
+        it('should update an existing expense record', () => {
+
+        });
+    });
+    describe('#delete', () => {
+        it('should delete an existing expense record', () => {
+
         });
     });
 });
