@@ -19,7 +19,16 @@ const existingExpense = {
 describe('Expense', () => {
     describe('#get', () => {
         it('should return return a list of all expenses', (done) => {
-            done();
+            mongoose.connect(dbName);
+            let db = mongoose.connection;
+            db.on('error', console.error);
+            db.once('open', () => {
+                Expense.find({}, (err, results) => {
+                    if (err) done(err);
+                    db.close();
+                    done();
+                });
+            });
         });
     });
     describe('#create', () => {
