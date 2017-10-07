@@ -3,10 +3,23 @@ const mongoose = require('mongoose');
 const Expense = require('../src/expense');
 const dbName = process.env.dbName || 'mongodb://localhost/test';
 
+const newExpense = {
+    category: 0,
+    label: 'Testing',
+    value: 1,
+};
+
+let createdExpense;
+
+const existingExpense = {
+    _id: "59d7b4fee225b612d71dfffb",
+    value: Math.random()
+};
+
 describe('Expense', () => {
     describe('#get', () => {
-        it('should return return a list of all expenses', () => {
-
+        it('should return return a list of all expenses', (done) => {
+            done();
         });
     });
     describe('#create', () => {
@@ -15,29 +28,39 @@ describe('Expense', () => {
             let db = mongoose.connection;
             db.on('error', console.error);
             db.once('open', () => {
-                const expense = new Expense({
-                    category: 0,
-                    label: 'Testing',
-                    value: 1,
-                });
+                const expense = new Expense(newExpense);
 
                 expense.save((err, exp) => {
                     if (err) done(err);
                     db.close();
-                    done()
-                    console.dir(expense);
+                    done();
+                    createdExpense = exp;
                 });
             });
         });
     });
     describe('#update', () => {
-        it('should update an existing expense record', () => {
-
+        it('should update an existing expense record', (done) => {
+            mongoose.connect(dbName);
+            let db = mongoose.connection;
+            db.on('error', console.error);
+            db.once('open', () => {
+                Expense.findOneAndUpdate({
+                    _id: existingExpense._id
+                }, existingExpense,
+                    {
+                        upsert: true
+                    }, function(err, doc) {
+                        if (err) done(err);
+                        db.close();
+                        done();
+                    });
+            });
         });
     });
     describe('#delete', () => {
-        it('should delete an existing expense record', () => {
-
+        it('should delete an existing expense record', (done) => {
+            done();
         });
     });
 });
