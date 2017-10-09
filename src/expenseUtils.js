@@ -51,7 +51,6 @@ module.exports = {
         let db = mongoose.connection;
         db.on('error', console.error);
         db.once('open', () => {
-            console.log(res, 'testing things');
             Expense.findOneAndUpdate({
                 _id: req.body._id
             }, req.body,
@@ -61,7 +60,30 @@ module.exports = {
                     if (err) return res.send(500, {
                             error: err
                         });
+                    db.close();
                     return res.send("succesfully saved");
+                });
+        });
+    },
+
+    deleteExpense: (req, res) => {
+        mongoose.connect(dbName);
+        let db = mongoose.connection;
+        db.on('error', console.error);
+        db.once('open', () => {
+            Expense.findOneAndUpdate({
+                _id: req.body._id
+            }, {
+                active: false
+            },
+                {
+                    upsert: true
+                }, function(err, doc) {
+                    if (err) return res.send(500, {
+                            error: err
+                        });
+                    db.close();
+                    return res.send("succesfully deleted");
                 });
         });
     },
@@ -71,7 +93,9 @@ module.exports = {
         let db = mongoose.connection;
         db.on('error', console.error);
         db.once('open', () => {
-            Expense.find({}, (err, results) => {
+            Expense.find({
+                active: true
+            }, (err, results) => {
                 console.log('Results', err, results);
                 if (err) return console.error(err);
                 db.close();
@@ -87,7 +111,8 @@ module.exports = {
         db.on('error', console.error);
         db.once('open', () => {
             Expense.find({
-                '_id': req.params.expenseId
+                '_id': req.params.expenseId,
+                active: true
             }, (err, results) => {
                 if (err) return console.error(err);
                 db.close();

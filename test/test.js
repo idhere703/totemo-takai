@@ -69,7 +69,23 @@ describe('Expense', () => {
     });
     describe('#delete', () => {
         it('should delete an existing expense record', (done) => {
-            done();
+            mongoose.connect(dbName);
+            let db = mongoose.connection;
+            db.on('error', console.error);
+            db.once('open', () => {
+                Expense.findOneAndUpdate({
+                    _id: "59ad644dbcd3513fe670aa6a"
+                }, {
+                    active: false
+                },
+                    {
+                        upsert: true
+                    }, function(err, doc) {
+                        db.close();
+                        if (err) done(err);
+                        done();
+                    });
+            });
         });
     });
 });
