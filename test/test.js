@@ -9,11 +9,24 @@ const newExpense = {
     value: 1,
 };
 
-let createdExpense;
-
 const existingExpense = {
     _id: "59ad644dbcd3513fe670aa6a",
     value: Math.random()
+};
+
+const cleanupCreated = (expense) => {
+    mongoose.connect(dbName);
+    let db = mongoose.connection;
+    db.on('error', console.error);
+    db.once('open', () => {
+        Expense.deleteOne({
+            _id: expense._id
+        }, (err, results) => {
+            if (err) console.error(err);
+            console.log('Success!');
+            db.close();
+        });
+    });
 };
 
 describe('Expense', () => {
@@ -43,7 +56,7 @@ describe('Expense', () => {
                     if (err) done(err);
                     db.close();
                     done();
-                    createdExpense = exp;
+                    cleanupCreated(exp);
                 });
             });
         });
