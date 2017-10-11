@@ -21,6 +21,10 @@ app.post('/expenses/update', (req, res) => {
   expenseUtils.updateExpense(req, res);
 });
 
+app.post('/expenses/delete', (req, res) => {
+  expenseUtils.deleteExpense(req, res);
+});
+
 app.post('/expenses/add', (req, res) => {
   expenseUtils.addExpense(req, res);
 });
