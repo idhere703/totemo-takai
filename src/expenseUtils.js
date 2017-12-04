@@ -105,6 +105,23 @@ module.exports = {
         });
     },
 
+    getInactiveExpenses: (req, res) => {
+        mongoose.connect(dbName);
+        let db = mongoose.connection;
+        db.on('error', console.error);
+        db.once('open', () => {
+            Expense.find({
+                active: false
+            }, (err, results) => {
+                console.log('Results', err, results);
+                if (err) return console.error(err);
+                db.close();
+                res.status(200).send(results);
+                console.dir(results);
+            });
+        });
+    },
+
     getExpense: (req, res) => {
         mongoose.connect(dbName);
         let db = mongoose.connection;
